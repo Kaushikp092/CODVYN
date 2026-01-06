@@ -1,0 +1,30 @@
+* {
+    /* set Global font */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, 'Arial Narrow', Arial, sans-serif, sans-serif;
+
+}
+
+#head {
+    background-color: red;
+    text-align: center;
+}
+
+.container {
+    margin-top: 10px;
+    /* border: 2px solid black; */
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    /* border: 1px solid black; */
+    width: 170px;
+    min-height: 30vh;
+    margin: 10px;
+    background-color: gray;
+    border-radius: 10px;
+    padding: 10px;
+
+}
