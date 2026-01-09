@@ -1,0 +1,27 @@
+*{
+    box-sizing: border-box;
+}
+
+.parent{
+    width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: auto;
+}
+.box{
+    background-color: cadetblue;
+    min-height: 120px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 640px) {
+    .parent{
+        /* display: grid;  */ /* removing display grid*/
+        grid-template-columns: 1fr;
+    }
+}
+
