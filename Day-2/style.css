@@ -1,12 +1,23 @@
-* {
-    /* set Global font */
+*{
+    /*Added a basic reset for layout consistency */
+    box-sizing: border-box;
+}
+body {
+    /* set Global font for body*/
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, 'Arial Narrow', Arial, sans-serif, sans-serif;
-
+    
 }
 
 #head {
     background-color: red;
     text-align: center;
+}
+
+form{ 
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .container {
@@ -16,15 +27,24 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 10px; /*using gap for flexbox*/
 }
 
 .card {
     /* border: 1px solid black; */
-    width: 170px;
-    min-height: 30vh;
+    flex: 1 1 200px; /* remove fix width and add min-width is 200px */
+    min-height: 20vh;
     margin: 10px;
     background-color: gray;
     border-radius: 10px;
     padding: 10px;
-
 }
+
+/* make responsive grid */
+@media(max-width: 768px){
+    .container{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
