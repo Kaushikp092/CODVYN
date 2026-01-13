@@ -1,13 +1,24 @@
-import './App.css'
-import Header from './component/Header'
+import "./App.css";
 
-function App() {
-
-  return (
-    <>
-    <Header />
-    </>
-  )
+const Header  = () => {
+   return (
+      <>
+         <div>Learning React Basic</div>
+         <p>
+            React is library not a framework. React helps in building fast,
+            interactive and reusable user interfaces, especially single-page
+            Applications
+         </p>
+      </>
+   );
 }
 
-export default App
+function App() {
+   return (
+      <>
+         <Header />
+      </>
+   );
+}
+
+export default App;
