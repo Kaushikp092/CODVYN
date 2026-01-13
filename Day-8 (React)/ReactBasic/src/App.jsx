@@ -1,4 +1,5 @@
 import "./App.css";
+import Card from "./components/Card";
 
 const Header  = () => {
    return (
@@ -17,6 +18,9 @@ function App() {
    return (
       <>
          <Header />
+         <Card tiltle={'Basic props example'} description={'passing props from parent to child'} />
+         <Card tiltle={'Reusable Components'} description={'Pass different props to render variations of the same component.'}/>
+         <Card tiltle={'Destructuring'} description={'lets you pull values directly from the props object, so you dont have to repeat props'}/>
       </>
    );
 }
