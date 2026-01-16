@@ -1,7 +1,8 @@
 import "./App.css";
 // import Card from "./components/Card";
 // import Counter from "./components/Counter";
-import ToggleMessage from "./components/ToggleMessage";
+// import ToggleMessage from "./components/ToggleMessage";
+import UserList from "./components/UserList";
 
 const Header  = () => {
 
@@ -20,7 +21,8 @@ const Header  = () => {
 function App() {
    return (
       <>
-         <ToggleMessage />
+         <UserList />
+         {/* <ToggleMessage /> */}
          {/* <Header /> */}
          {/* <Card tiltle={'Basic props example'} description={'passing props from parent to child'} />
          <Card tiltle={'Reusable Components'} description={'Pass different props to render variations of the same component.'}/>
