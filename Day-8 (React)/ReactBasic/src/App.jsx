@@ -1,7 +1,7 @@
 import "./App.css";
 // import Card from "./components/Card";
-import Counter from "./components/Counter";
-// import ToggleMessage from "./components/ToggleMessage";
+// import Counter from "./components/Counter";
+import ToggleMessage from "./components/ToggleMessage";
 // import UserList from "./components/UserList";
 
 const Header = () => {
@@ -20,8 +20,9 @@ const Header = () => {
 function App() {
    // Data - 9 task tried rendering using array in map function
    const cardData = [
-      {title: 'Array and map',
-         description: 'Using map to render a list of components from an array'
+      {
+         title: "Array and map",
+         description: "Using map to render a list of components from an array",
       },
       {
          title: "Basic props example",
@@ -40,7 +41,10 @@ function App() {
    ];
    return (
       <>
-      {/* Day - 9 */}
+         {/* Day - 8 */}
+         {/* <Header /> */}
+
+         {/* Day - 9 */}
          {/* <div>
             {cardData.map((card, index) => (
                <Card
@@ -52,10 +56,13 @@ function App() {
          </div> */}
 
          {/* Day - 10 */}
-         <Counter />
+         {/* <Counter /> */}
+
+         {/* Day - 11 */}
+         <ToggleMessage />
+
+
          {/* <UserList /> */}
-         {/* <ToggleMessage /> */}
-         {/* <Header /> */}
       </>
    );
 }

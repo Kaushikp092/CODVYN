@@ -9,55 +9,48 @@ const ToggleMessage = () => {
    };
 
    //TASK 2
-   const [todos] = useState([ //simple array state
+   const [todos] = useState([
       "Buy groceries",
       "Finish React project",
       "Call mom",
       "Read a book",
       "Workout",
    ]);
-   const [isShown, setIsShown] = useState(true);
 
-   const handleListChange = () => {
+   const [isShown, setIsShown] = useState(true);
+   const handleChange = () => {
       setIsShown(!isShown);
    };
 
    return (
       <>
          {/* TASK 1 */}
+         {/* here also changing inner message text and changes when visibility change --TASK 1*/}
          <div>
-            {/* here also changing inner message text and changes when visibility change --TASK 1*/}
-            {isVisible ? (
-               <p>
-                  Learing how to use useState to manage a boolean value and how
-                  to use ternary operator.
-               </p>
-            ) : (
-               <p>Click on Show Message button to dispaly data</p>
-            )}
+            {isVisible
+               ? "message is visible because isVisible is on true state"
+               : "message is not visible because isVisible is on false state"}
 
             <button onClick={handleToggle}>
-               {isVisible ? "Hide Message" : "Show Message"}
                {/* here setting inner text of button to toggle when visibility changes --TASK 1*/}
+               {isVisible ? "Hide message" : "Show message"}
             </button>
          </div>
 
-
          {/* TASK 2 */}
          <div>
-            <h2>Listing all Todos:</h2>
-            {isShown && (
-               <div>
-                  {/* Rendering all list on Screen*/}
-                  {todos.map((item) => (
-                     <li key={item} style={{ listStyle: "none" }}>
-                        {item}
-                     </li>
-                  ))}
-               </div>
-            )}
-            <button onClick={handleListChange}>
-               {isShown ? "Hide list Todos" : "Show list Todos"}
+            <h2>Show All List Todos:</h2>
+
+            <div>
+               {isShown ? (
+                  todos.map((todo) => <ul key={todo}>{todo}</ul>)
+               ) : (
+                  <p>List is empty</p>
+               )}
+            </div>
+
+            <button onClick={handleChange}>
+               {isShown ? "Hide List" : "Show List"}
             </button>
          </div>
       </>
