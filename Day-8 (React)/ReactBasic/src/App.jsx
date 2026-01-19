@@ -1,11 +1,10 @@
 import "./App.css";
-// import Card from "./components/Card";
+import Card from "./components/Card";
 // import Counter from "./components/Counter";
 // import ToggleMessage from "./components/ToggleMessage";
-import UserList from "./components/UserList";
+// import UserList from "./components/UserList";
 
-const Header  = () => {
-
+const Header = () => {
    return (
       <>
          <div>Learning React Basic</div>
@@ -16,18 +15,42 @@ const Header  = () => {
          </p>
       </>
    );
-}
+};
 
 function App() {
+   const cardData = [
+      {title: 'Array and map',
+         description: 'Using map to render a list of components from an array'
+      },
+      {
+         title: "Basic props example",
+         description: "Passing props from parent to child",
+      },
+      {
+         title: "Reusable Components",
+         description:
+            "Pass different props to render variations of the same component.",
+      },
+      {
+         title: "Destructuring",
+         description:
+            "Lets you pull values directly from the props object, so you dont have to repeat props",
+      },
+   ];
    return (
       <>
-         <UserList />
+         <div>
+            {cardData.map((card, index) => (
+               <Card
+                  key={index}
+                  title={card.title}
+                  description={card.description}
+               />
+            ))}
+         </div>
+         {/* <UserList /> */}
          {/* <ToggleMessage /> */}
          {/* <Header /> */}
-         {/* <Card tiltle={'Basic props example'} description={'passing props from parent to child'} />
-         <Card tiltle={'Reusable Components'} description={'Pass different props to render variations of the same component.'}/>
-         <Card tiltle={'Destructuring'} description={'lets you pull values directly from the props object, so you dont have to repeat props'}/> */}
-
          {/* <Counter /> */}
       </>
    );
