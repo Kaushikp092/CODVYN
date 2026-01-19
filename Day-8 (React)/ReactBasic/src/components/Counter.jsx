@@ -1,34 +1,31 @@
-import React from "react";
 import { useState } from "react";
 
 const Counter = () => {
    const [count, setCount] = useState(0);
-   const [text, setText] = useState("");
+   const [setText, setSetText] = useState("");
 
-   const updateCount = () => {
+   const updateNum = () => {
       setCount(count + 1);
    };
-   const delCount = () => {
-      count > 0 ? setCount(count - 1) : '';
+
+   const delNum = () => {
+      count > 0 ? setCount(count - 1) : "";
    };
 
    const handleChange = (e) => {
-      setText(e.target.value);
+      setSetText(e.target.value);
    };
 
    return (
       <>
-      <div className="counter" style={{padding : '10px'}}>
-         <div>Count {count}</div>
-         <button onClick={updateCount}>Add one</button>
-         <button onClick={delCount}>Minus one</button>
-      </div>
-
+         <div>counter : {count}</div>
+         <button onClick={updateNum}>Add one</button>{" "}
+         <button onClick={delNum}>Minus one</button>
          <form>
-            Input Value:{" "}
-            <input type="text" value={text} onChange={handleChange} />
-            <p>you Typed: {text}</p>
+            Entered Your text:
+            <input type="text" onChange={handleChange} />
          </form>
+         <p>The text that you have enter: {setText}</p>
       </>
    );
 };
