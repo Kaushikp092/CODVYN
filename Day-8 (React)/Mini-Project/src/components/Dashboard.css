@@ -1,0 +1,48 @@
+body{
+    color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
+}
+
+.header{
+    display: flex; 
+    justify-content: space-around;
+    align-items: center;
+}
+
+.container{
+    padding: 20px;
+}
+
+.card-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 0.75rem;
+}
+
+.controls label {
+  font-weight: bold;
+}
+
+.controls select {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: #1c1f26;
+  color: white;
+  border: none;
+}
+
+@media (max-width: 670px){
+  .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
