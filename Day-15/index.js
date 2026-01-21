@@ -7,7 +7,9 @@ app.get('/',(req,res) =>{
 })
 
 app.get('/api/hello', (req, res) => {
-  res.send('GET request to the homepage new url has send')
+  res.send({name: 'Kaushik',
+    message: 'started learning RESTfull APIs'
+  });
 })
 
 
