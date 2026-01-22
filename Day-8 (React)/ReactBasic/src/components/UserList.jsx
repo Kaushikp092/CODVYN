@@ -6,21 +6,21 @@ const UserList = () => {
    const [error, setError] = useState(null);
 
    useEffect(() => {
-      try {
-         const fetchUsers = async () => {
+      const fetchUsers = async () => {
+         try {
             const res = await fetch(
                "https://jsonplaceholder.typicode.com/users",
             );
             if (!res.ok) throw new Error("Failed to fetch users data");
             const data = await res.json();
             setUsers(data);
-         };
-         fetchUsers();
-      } catch (err) {
-         setError(err.message);
-      } finally {
-         setLoading(false);
-      }
+         } catch (err) {
+            setError(err.message);
+         } finally {
+            setLoading(false);
+         }
+      };
+      fetchUsers();
    }, []);
 
    return (
@@ -37,6 +37,8 @@ const UserList = () => {
                ))}
             </ul>
          )}
+
+         {/* Day - 13*/}
       </>
    );
 };
