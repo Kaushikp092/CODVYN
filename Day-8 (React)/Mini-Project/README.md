@@ -1,16 +1,124 @@
-# React + Vite
+# Photo Gallery Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based mini project that fetches and displays photos from an API with pagination and limit controls.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Photo Gallery**: Displays photos fetched from the Boring API
+- **Pagination**: Navigate between pages (1-5) to view different sets of photos
+- **Limit Selector**: Choose how many photos to display per page (5, 10, 20, or 50)
+- **Loading & Error States**: Displays loading messages and error handling
+- **Responsive Card Layout**: Photos displayed in a clean grid layout
+- **Photo Details**: Each photo card shows the image, title, and description
 
-## React Compiler
+## Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── components/
+│   ├── Dashboard.jsx       # Main component with API fetching logic
+│   ├── Dashboard.css       # Styling for the dashboard
+│   ├── LimitSelector.jsx   # Component for selecting items per page
+│   └── PageSelector.jsx    # Component for selecting page number
+├── App.jsx                 # Root application component
+├── main.jsx                # React entry point
+└── index.css               # Global styles
+```
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **React** (v19.2.0)
+- **Vite** - Fast build tool and dev server
+- **JavaScript (ES6+)**
+- **CSS3**
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Navigate to the project directory
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Project
+
+- **Development Server**:
+  ```bash
+  npm run dev
+  ```
+  Opens at `http://localhost:5173`
+
+- **Build for Production**:
+  ```bash
+  npm run build
+  ```
+
+- **Preview Build**:
+  ```bash
+  npm run preview
+  ```
+
+- **Linting**:
+  ```bash
+  npm run lint
+  ```
+
+## API
+
+The project fetches data from the **Boring API**:
+- **Endpoint**: `https://boringapi.com/api/v1/photos/`
+- **Query Parameters**:
+  - `page`: Page number (1-5)
+  - `limit`: Number of items per page (5, 10, 20, 50)
+
+## Component Details
+
+### Dashboard
+- Manages all state: photos, loading, error, limit, and page
+- Fetches data using `useEffect` hook when page or limit changes
+- Renders the photo grid and control components
+
+### LimitSelector
+- Dropdown to select items per page
+- Options: 5, 10, 20, 50
+- Updates parent component on change
+
+### PageSelector
+- Dropdown to select which page to view
+- Options: Pages 1-5
+- Updates parent component on change
+
+## Features Highlights
+
+✨ **Real-time Data Fetching** - Updates whenever page or limit changes  
+📱 **Responsive Design** - Works on different screen sizes  
+⚠️ **Error Handling** - Catches and displays API errors  
+⏳ **Loading State** - Shows feedback while fetching data  
+🎨 **Clean UI** - Organized card-based layout  
+
+## How to Use
+
+1. Select the number of items to display per page using the **Limit Selector**
+2. Choose a page number using the **Page Selector**
+3. The photos will load automatically based on your selections
+4. View photo details including title and description on each card
+
+## Future Enhancements
+
+- Add infinite scroll pagination
+- Implement search/filter functionality
+- Add image optimization and lazy loading
+- Create lightbox view for full-size images
+- Add sorting options
+- Add favorite/bookmark feature
+
+---
+
+**Created as part of the 30-day MERN Challenge (Day 8 - React)**
