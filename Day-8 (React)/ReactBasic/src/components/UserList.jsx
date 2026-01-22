@@ -26,7 +26,7 @@ const UserList = () => {
    return (
       <>
          {/* Day - 12 */}
-         {loading && <p>Loading users...</p>}
+         {/* {loading && <p>Loading users...</p>}
          {error && <p>Error: {error}</p>}
          {!loading && !error && (
             <ul>
@@ -36,9 +36,20 @@ const UserList = () => {
                   </li>
                ))}
             </ul>
-         )}
+         )} */}
 
          {/* Day - 13*/}
+         {loading && <p>Loading users...</p>}
+         {error && <p>Error: {error}</p>}
+         {!loading &&
+            !error &&
+            users.map((user) => (
+               <ul key={user.id}>
+                  <li>Username: {user.username}</li>
+                  <li>Phone: {user.phone}</li>
+                  <li>Company : {user.company.name} </li>
+               </ul>
+            ))}
       </>
    );
 };
