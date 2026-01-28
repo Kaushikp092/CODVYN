@@ -1,12 +1,20 @@
 const express = require('express')
+const mongoose = require('mongoose');
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT;
 
 app.use(express.json());
 
-const userRouter = require('./modules/users')
+// Connect to MongoDB
+mongoose.connect(process.env.MONGO_URL)
+    .then(() => console.log('MongoDB connected locally'))
+    .catch(err => console.log(err))
 
-app.use('/api/users', userRouter);
+app.get('/',(req,res)=>{
+    res.status(200).json({
+        message: 'connected successfully'
+    })
+})
 
 app.listen(port, () => console.log(`Example app listening http://localhost/${port}`))
