@@ -11,10 +11,8 @@ mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('MongoDB connected locally'))
     .catch(err => console.log(err))
 
-app.get('/',(req,res)=>{
-    res.status(200).json({
-        message: 'connected successfully'
-    })
-})
+const userRouter = require('./routes/users');
 
-app.listen(port, () => console.log(`Example app listening http://localhost/${port}`))
+app.use('/api/users', userRouter);
+
+app.listen(port, () => console.log(`Example app listening http://localhost:${port}`))
