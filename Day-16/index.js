@@ -12,6 +12,6 @@ const userRouter = require('./routes/users');
 app.use('/api/users', userRouter);
 
 
-// app.listen(port, () => {
-//     console.log(`server running on https://localhost/${port}`);
-// })
+app.listen(port, () => {
+    // console.log(`server running on https://localhost/${port}`);
+})
