@@ -49,7 +49,6 @@ router.post('/' ,(req,res) => {
     };
     
     users.push(newUser);
-
     res.status(201).json({
         message: 'User created successfully',
         user: newUser
