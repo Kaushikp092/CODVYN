@@ -31,9 +31,14 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const userid = await User.findById(req.params.id);
+        if (!userid) {
+            return res.status(404).json({
+                message: 'User not Found'
+            })
+        }
         res.status(200).json(userid);
     } catch (err) {
-        res.status(404).json({
+        res.status(400).json({
             message: err.message
         });
     }
@@ -58,13 +63,13 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
-        if(!user){
+        if (!user) {
             return res.status(404).json({
                 message: 'user not found'
             });
         }
         res.status(200).json({
-            message:'user deleted successfully'
+            message: 'user deleted successfully'
         })
     } catch (err) {
         res.status(400).json({
