@@ -5,7 +5,7 @@ const User = require('../modules/users');
 // Fetch all users
 router.get('/', async (req, res) => {
     try {
-        const users = await User.find();
+        const users = await User.find().select("-password");
         res.status(200).json(users);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 // Get user by ID
 router.get('/:id', async (req, res) => {
     try {
-        const userid = await User.findById(req.params.id);
+        const userid = await User.findById(req.params.id).select("-password");
         if (!userid) {
             return res.status(404).json({
                 message: 'User not Found'
