@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+const auth = require('./middleware/auth');
 const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
-const auth = require('./middleware/auth')
 require('dotenv').config();
 
 const port = process.env.PORT;
