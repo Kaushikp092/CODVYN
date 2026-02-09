@@ -4,7 +4,7 @@ import { useState } from "react";
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState();
+  const [token, setToken] = useState(localStorage.getItem('token' || ''));
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
