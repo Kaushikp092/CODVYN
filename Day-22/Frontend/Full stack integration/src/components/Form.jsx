@@ -8,12 +8,14 @@ const Form = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
 
+    const API_URL = import.meta.env.VITE_API_URL
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     setError('');
 
     try{
-       const res = await fetch('http://localhost:5000/api/auth/login',{
+       const res = await fetch(`${API_URL}/auth/login`,{
         method: "POST",
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({email, password})
@@ -38,7 +40,7 @@ const Form = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/users',{
+      const res = await fetch(`${API_URL}/users`,{
         headers: {Authorization: `Bearer ${jwt}`}
       });
 
