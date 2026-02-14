@@ -21,7 +21,7 @@ router.get('/', authMiddleware, async (req,res) =>{
 // GET user by ID  
 router.get('/:id', authMiddleware, async(req,res)=>{
     try {
-        const user = await User.findById(req.params.id);
+        const user = await User.findById(req.params.id).select('-password');
         if(!user) return res.status(404).json({
             message: 'User not Found'
         })
@@ -53,7 +53,7 @@ router.post('/', authMiddleware, async (req,res)=>{
 // PUT update request
 router.put('/:id', authMiddleware, async(req,res)=>{
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true}).select('-password');
         if(!user) return res.status(404).json({
             message: 'User not found'
         })
