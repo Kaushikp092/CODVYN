@@ -1,9 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const auth = require('./middleware/auth');
 const userRouter = require('./routes/users');
-const authRouter = require('./routes/auth');
+// const auth = require('./middleware/auth');
+// const authRouter = require('./routes/auth');
 require('dotenv').config();
 
 const port = process.env.PORT;
@@ -16,9 +16,11 @@ mongoose
   .then(() => console.log('MongoDB connected locally'))
   .catch((err) => console.log('MongoDB connection error:', err.message));
 
-app.use('/api/users', auth, userRouter)
-
-app.use('/api/auth', authRouter);
+//Day-19 task
+app.use('/api/users', userRouter); 
+  
+// app.use('/api/users', auth, userRouter)
+// app.use('/api/auth', authRouter);
 
 app.listen(port, () =>
   console.log(`Example app listening http://localhost:${port}`)
