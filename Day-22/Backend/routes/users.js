@@ -38,7 +38,6 @@ router.post('/', authMiddleware, async (req,res)=>{
     try {
 
         const hashed = await bcrypt.hash(req.body.password, 10)
-
         const user = await User.create({
             username: req.body.username,
             email: req.body.email,
@@ -53,7 +52,7 @@ router.post('/', authMiddleware, async (req,res)=>{
 // PUT update request
 router.put('/:id', authMiddleware, async(req,res)=>{
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, {new: true}.select('-password'));
         if(!user) return res.status(404).json({
             message: 'User not found'
         })
