@@ -53,6 +53,7 @@ const UserManagement = () => {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [editingUserId, setEditingUserId] = useState(null);
 
   useEffect(() => {
     loadUsers();
@@ -67,9 +68,15 @@ const UserManagement = () => {
     e.preventDefault();
     setError("");
     try {
-      await createUser(form);
-      setForm({ username: "", email: "", password: "" });
-      setMessage("User created successfully");
+      if (editingUserId) {
+        await updateUser(editingUserId, form);
+        setMessage('User updated successfully');
+        setEditingUserId(null);
+      } else {
+        await createUser(form);
+        setMessage('User Created Successfully')
+      }
+      setForm({username: '',email: '', password: ''});
       loadUsers();
     } catch (err) {
       setError(err.message);
@@ -87,7 +94,6 @@ const UserManagement = () => {
       <h2>User Management</h2>
       {message && <p className="green">{message}</p>}
       {error && <p className="red">{error}</p>}
-      {/* {message && <p className="green">{message}</p> || error && <p className="red">{red}</p> } */}
       
       <form onSubmit={handleSubmit}>
         <label htmlFor="userName">
@@ -128,6 +134,9 @@ const UserManagement = () => {
           <li key={user._id}>
             {user.username} - {user.email}
             <button onClick={() => handleDelete(user._id)}>Delete</button>
+            <button onClick={()=>{setForm({username: user.username, email: user.email, password: ''});
+            setEditingUserId(user._id);
+          }}>Edit</button>
           </li>
         ))}
       </ul>
