@@ -25,7 +25,7 @@ const Form = () => {
 
       const data = await res.json();
       setToken(data.token);
-      localStorage.setItem("Authorization header", data.token);
+      localStorage.setItem("token", data.token);
     } catch (err) {
       setError(err.message);
     }
