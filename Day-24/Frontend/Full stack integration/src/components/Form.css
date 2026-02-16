@@ -1,0 +1,14 @@
+form{
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+label{
+    padding: 20px;
+}
+input{
+    margin-left: 10px;
+}
+p{
+    color : red;
+}
