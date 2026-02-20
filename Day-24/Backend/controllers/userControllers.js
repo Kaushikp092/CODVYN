@@ -46,8 +46,8 @@ const getUsersByID = async (req,res) =>{
 
 const updateUser = async (req,res) =>{
     try {
-        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, select: '-password' });
-        if(!user) return res.status(400).json({message: 'User Not Found'});
+        const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).select("-password");
+        if(!user) return res.status(404).json({message: 'User Not Found'});
         res.status(200).json({message: 'User Updated', data: user});
     } catch (err) {
         res.status(400).json({message: err.message});
@@ -67,9 +67,9 @@ const deleteUser = async (req,res) =>{
 const signupUser = async (req,res)=>{
     try {
         const {username, email, password} = req.body;
-        const hashed = await bcrypt.hash(req.body.password, 10);
-        const existingUser = await User.find({email});
-        if(existingUser) return res.status(400).json({message: 'Email Already Registeerd'});
+        const hashed = await bcrypt.hash(password, 10);
+        const existingUser = await User.findOne({email});
+        if(existingUser) return res.status(400).json({message: 'Email Already Registered'});
 
         await User.create({username, email, password: hashed});
         res.status(201).json({message: 'User registered successfully'});
@@ -83,7 +83,7 @@ const loginUser = async (req,res) =>{
     const {email, password} = req.body;
     try {
         const user = await User.findOne({email});
-        if(!user) return res.status(400).json({message: 'User Not Found'});
+        if(!user) return res.status(404).json({message: 'User Not Found'});
 
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) return res.status(400).json({message: 'Invalid credentials'});
