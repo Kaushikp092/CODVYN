@@ -1,11 +1,15 @@
-import './app.css';
-import Form from './components/Form';
-import UserManagement from './components/UserManagement';
+import { useState } from 'react';
+import Dashboard from './components/Dashboard';
+import AuthPage from './components/AuthPage';
+
 const App = () => {
-  const token = localStorage.getItem('token');
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return !!localStorage.getItem('token');
+  });
+
   return (
     <>
-    {token ? <UserManagement/> : <Form/>}
+    {isLoggedIn ? <Dashboard setIsLoggedIn={setIsLoggedIn} /> : <AuthPage setIsLoggedIn={setIsLoggedIn} />}
     </>
   )
 }
