@@ -1,0 +1,39 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.msg {
+  position: relative;
+  font-size: larger;
+  margin-top: 50px;
+}
+label {
+  display: block;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #444;
+}
+input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+button {
+  width: 100%;
+  padding: 0.7rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+p {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #333;
+}
