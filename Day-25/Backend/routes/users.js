@@ -5,10 +5,19 @@ const {
   getUsersByID,
   updateUser,
   deleteUser,
+  loggedUser,
+  loggedUpdateUser,
+  loggedDeleteUser,
 } = require("../controllers/userControllers");
 const authMiddleware = require('../middleware/auth')
 const router = express.Router();
 
+// For logged-in user only - must come BEFORE /:id routes
+router.get('/me', authMiddleware, loggedUser);
+router.put('/me', authMiddleware, loggedUpdateUser);
+router.delete('/me', authMiddleware, loggedDeleteUser);
+
+// For all users
 //GET all users /api/users (all routes protected)
 router.get("/", authMiddleware, getUsers);
 
