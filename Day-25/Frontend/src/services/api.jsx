@@ -68,3 +68,11 @@ export const deleteUser = async (id) => {
   });
   return handleResponse(res);
 };
+
+// Fetch current logged-in user
+export const fetchCurrentUser = async () => {
+  const res = await fetch(`${BASE_URL}/users/me`, {
+    headers: getHeader(),
+  });
+  return handleResponse(res);
+};
