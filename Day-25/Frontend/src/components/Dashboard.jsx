@@ -6,7 +6,10 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	const [users, setUsers] = useState([]);
 	const [form, setForm] = useState({ username: "", email: "", password: "" });
 	const [message, setMessage] = useState("");
+	const [messageType, setMessageType] = useState("");
 	const [editingUserId, setEditingUserId] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [initialLoading, setInitialLoading] = useState(true);
 
 	const loadUser = async () => {
 		try {
@@ -14,6 +17,9 @@ const Dashboard = ({ setIsLoggedIn }) => {
 			setUsers(data.users);
 		} catch (err) {
 			setMessage(err.message || "Something went wrong. Please try again.");
+			setMessageType("error");
+		} finally {
+			setInitialLoading(false);
 		}
 	};
 
@@ -24,30 +30,47 @@ const Dashboard = ({ setIsLoggedIn }) => {
 	const handleCreate = async (e) => {
 		e.preventDefault();
 		setMessage("");
+		setMessageType("");
+		setLoading(true);
 		try {
 			if (editingUserId) {
 				await updateUser(editingUserId, form);
-				setMessage("User Updated Successfully");
+				setMessage("User Updated Successfully!");
+				setMessageType("success");
 				setEditingUserId(null);
 			} else {
 				await createUser(form);
-				setMessage("User Created Successfully");
+				setMessage("User Created Successfully!");
+				setMessageType("success");
 			}
 			setForm({ username: "", email: "", password: "" });
 			loadUser();
 		} catch (err) {
-			setForm({ username: "", email: "", password: "" });
 			setMessage(err.message || "Something went wrong. Please try again.");
+			setMessageType("error");
+			setForm({ username: "", email: "", password: "" });
+		} finally {
+			setLoading(false);
 		}
 	};
 
 	const handleDelete = async (id) => {
+		if (!window.confirm("Are you sure you want to delete this user?")) {
+			return;
+		}
+		setMessage("");
+		setMessageType("");
+		setLoading(true);
 		try {
 			await deleteUser(id);
 			loadUser();
-			setMessage("User deleted successfully");
+			setMessage("User deleted successfully!");
+			setMessageType("success");
 		} catch (err) {
 			setMessage(err.message || "Something went wrong. Please try again.");
+			setMessageType("error");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -55,6 +78,23 @@ const Dashboard = ({ setIsLoggedIn }) => {
 		localStorage.removeItem("token");
 		setIsLoggedIn(false);
 	};
+
+	if (initialLoading) {
+		return (
+			<>
+				<div className="dashboard-header">
+					<h1 className="main-header">User Management Dashboard</h1>
+					<button onClick={handleLogout} className="logoutBtn">
+						Logout
+					</button>
+				</div>
+				<div className="dashboard-loading">
+					<div className="loading-spinner"></div>
+					<p>Loading users...</p>
+				</div>
+			</>
+		);
+	}
 
 	return (
 		<>
@@ -64,7 +104,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 					Logout
 				</button>
 			</div>
-			{message && <p className="success">{message}</p>}
+			{message && <p className={`msg ${messageType}`}>{message}</p>}
 			<div className="container">
 				<div className="dashboard-form">
 					<form onSubmit={handleCreate}>
@@ -82,6 +122,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 									setForm({ ...form, username: e.target.value })
 								}
 								required
+								disabled={loading}
 							/>
 						</label>
 						<label htmlFor="email">
@@ -95,6 +136,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 									setForm({ ...form, email: e.target.value })
 								}
 								required
+								disabled={loading}
 							/>
 						</label>
 						<label htmlFor="password">
@@ -108,10 +150,11 @@ const Dashboard = ({ setIsLoggedIn }) => {
 									setForm({ ...form, password: e.target.value })
 								}
 								required={!editingUserId}
+								disabled={loading}
 							/>
 						</label>
-						<button type="submit">
-							{editingUserId ? "Update User" : "Add User"}
+						<button type="submit" disabled={loading}>
+							{loading ? "Processing..." : editingUserId ? "Update User" : "Add User"}
 						</button>
 						{editingUserId && (
 							<button
@@ -121,6 +164,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 									setForm({ username: "", email: "", password: "" });
 								}}
 								style={{ marginTop: '0.5rem', background: '#95a5a6' }}
+								disabled={loading}
 							>
 								Cancel
 							</button>
@@ -143,6 +187,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 										<button
 											onClick={() => handleDelete(user._id)}
 											className="delete"
+											disabled={loading}
 										>
 											Delete
 										</button>
@@ -155,6 +200,7 @@ const Dashboard = ({ setIsLoggedIn }) => {
 												});
 												setEditingUserId(user._id);
 											}}
+											disabled={loading}
 										>
 											Edit
 										</button>

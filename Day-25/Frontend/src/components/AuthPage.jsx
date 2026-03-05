@@ -2,7 +2,8 @@ import { useState } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 import "./AuthPage.css";
-const AuthPage = ({setIsLoggedIn}) => {
+
+const AuthPage = ({ setIsLoggedIn }) => {
   const [activeForm, setActiveForm] = useState("signup");
   return (
     <>
@@ -22,7 +23,11 @@ const AuthPage = ({setIsLoggedIn}) => {
           </button>
         </div>
         <div className="auth-form">
-          {activeForm === "login" ? <Login setIsLoggedIn={setIsLoggedIn}/> : <Signup setIsLoggedIn={setIsLoggedIn}/>}
+          {activeForm === "login" ? (
+            <Login setIsLoggedIn={setIsLoggedIn} />
+          ) : (
+            <Signup setIsLoggedIn={setIsLoggedIn} />
+          )}
         </div>
       </div>
     </>
@@ -30,3 +35,4 @@ const AuthPage = ({setIsLoggedIn}) => {
 };
 
 export default AuthPage;
+

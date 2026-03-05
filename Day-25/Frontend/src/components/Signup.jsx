@@ -2,14 +2,16 @@ import { useState } from "react";
 import { SignupUser } from "../services/api";
 import "./Signup.css";
 
-const Signup = () => {
+const Signup = ({ setIsLoggedIn }) => {
 	const [form, setForm] = useState({ username: "", email: "", password: "" });
 	const [message, setMessage] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [messageType, setMessageType] = useState(""); // 'success' or 'error'
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setMessage("");
+		setMessageType("");
 		setLoading(true);
 		try {
 			const response = await SignupUser(
@@ -18,15 +20,24 @@ const Signup = () => {
 				form.password,
 			);
 			localStorage.setItem("token", response.token);
-			setMessage("Signup successful");
+			setMessageType("success");
+			setMessage("Signup successful! Redirecting...");
+			// Small delay for user to see success message before redirect
+			setTimeout(() => {
+				setIsLoggedIn(true);
+			}, 500);
 		} catch (err) {
 			console.error(err);
-			setMessage(err.message || "Sigup Failed");
+			setMessageType("error");
+			setMessage(err.message || "Signup Failed. Please try again.");
+		} finally {
+			setLoading(false);
 		}
 	};
+
 	return (
 		<>
-			{message && <p>{message}</p>}
+			{message && <p className={`msg ${messageType}`}>{message}</p>}
 			<div className="form-container">
 				<form onSubmit={handleSubmit}>
 					<label>
@@ -39,6 +50,7 @@ const Signup = () => {
 								setForm({ ...form, username: e.target.value })
 							}
 							required
+							disabled={loading}
 						/>
 					</label>
 					<label>
@@ -51,6 +63,7 @@ const Signup = () => {
 								setForm({ ...form, email: e.target.value })
 							}
 							required
+							disabled={loading}
 						/>
 					</label>
 					<label>
@@ -63,9 +76,12 @@ const Signup = () => {
 								setForm({ ...form, password: e.target.value })
 							}
 							required
+							disabled={loading}
 						/>
 					</label>
-					<button type="submit">Signup</button>
+					<button type="submit" disabled={loading}>
+						{loading ? "Creating Account..." : "Signup"}
+					</button>
 				</form>
 			</div>
 		</>
@@ -73,3 +89,4 @@ const Signup = () => {
 };
 
 export default Signup;
+

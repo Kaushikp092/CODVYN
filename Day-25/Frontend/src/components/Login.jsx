@@ -6,26 +6,35 @@ const Login = ({setIsLoggedIn}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
-    const [loading, setloading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 
     const handlesubmit = async (e) => {
         e.preventDefault();
         setMessage('');
-        setloading(true);
+        setMessageType('');
+        setLoading(true);
         try {
             const response = await loginUser(email, password);
             localStorage.setItem("token", response.token);
-            setIsLoggedIn(true);
-            setMessage('Login successful');
+            setMessageType('success');
+            setMessage('Login successful! Redirecting...');
+            // Small delay for user to see success message before redirect
+            setTimeout(() => {
+                setIsLoggedIn(true);
+            }, 500);
         } catch (err) {
             console.error(err);
-            setMessage('Login Failed');
+            setMessageType('error');
+            setMessage(err.message || 'Login Failed. Please check your credentials.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return ( 
     <>
-    {message && <p className="msg">{message}</p> }
+    {message && <p className={`msg ${messageType}`}>{message}</p>}
 
     <div className="form-container">
     <form onSubmit={handlesubmit}>
@@ -35,6 +44,7 @@ const Login = ({setIsLoggedIn}) => {
             placeholder="Enter Your Email"
             onChange={(e) => setEmail(e.target.value)}
             required
+            disabled={loading}
             />
         </label>
 
@@ -44,10 +54,13 @@ const Login = ({setIsLoggedIn}) => {
             placeholder="Enter Your Password"
             onChange={(e) => setPassword(e.target.value)}
             required
+            disabled={loading}
              />
         </label>
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Login'}
+        </button>
     </form>
 
     </div>
@@ -56,3 +69,4 @@ const Login = ({setIsLoggedIn}) => {
 }
  
 export default Login;
+
